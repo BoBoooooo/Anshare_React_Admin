@@ -92,6 +92,12 @@ export default defineConfig({
               component: './AccountCenter',
             },
             {
+              name: '测试页面',
+              icon: 'smile',
+              path: '/test',
+              component: './Test/test',
+            },
+            {
               name: '空白页面',
               icon: 'smile',
               path: '/emptypage',
