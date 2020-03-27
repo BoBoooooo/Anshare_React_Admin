@@ -86,6 +86,18 @@ export default defineConfig({
               component: './ListTableList',
             },
             {
+              name: '空白页面',
+              icon: 'smile',
+              path: '/emptypage',
+              component: './EmptyPage',
+            },
+            {
+              name: '工作台',
+              icon: 'smile',
+              path: '/dashboardworkplace',
+              component: './DashboardWorkplace',
+            },
+            {
               component: './404',
             },
           ],
