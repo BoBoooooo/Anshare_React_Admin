@@ -11,11 +11,9 @@ const AuthComponent = ({
   location = {
     pathname: '',
   },
-  user,
 }) => {
-  const { currentUser } = user;
   const { routes = [] } = route;
-  const isLogin = currentUser && currentUser.name;
+  const isLogin = sessionStorage.getItem('auth');
   return (
     <Authorized
       authority={getRouteAuthority(location.pathname, routes) || ''}
