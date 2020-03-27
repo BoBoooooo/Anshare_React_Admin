@@ -8,7 +8,7 @@
 export default {
   dev: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'http://116.62.78.229:8086/FlowSCBackend',
       changeOrigin: true,
       pathRewrite: {
         '^': '',

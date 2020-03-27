@@ -4,6 +4,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -25,7 +26,7 @@ const codeMessage = {
  * 异常处理程序
  */
 
-const errorHandler = error => {
+const errorHandler = (error) => {
   const { response } = error;
 
   if (response && response.status) {
@@ -50,7 +51,34 @@ const errorHandler = error => {
 
 const request = extend({
   errorHandler,
-  // 默认错误处理
-  credentials: 'include', // 默认请求是否带上cookie
 });
+
+// request拦截器, 改变url 或 options.
+request.interceptors.request.use(async (url, options) => {
+  const c_token = sessionStorage.getItem('auth');
+  console.log(c_token);
+  const headers = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json, text/plain, */*',
+  };
+  if (c_token) {
+    headers.auth = c_token;
+    return {
+      url,
+      options: { ...options, headers },
+    };
+  }
+  return {
+    url,
+    options: { ...options },
+  };
+});
+
+// response拦截器, 处理response
+request.interceptors.response.use((response,options) => {
+  console.log(response);
+  console.log(options);
+  return response;
+});
+
 export default request;
