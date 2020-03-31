@@ -1,5 +1,5 @@
 import { Input, Form } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ItemMap from './map';
 import LoginContext from './LoginContext';
 
@@ -22,9 +22,6 @@ const getFormItemOptions = ({ onChange, defaultValue, customProps = {}, rules })
 };
 
 const LoginItem = props => {
-  const [ setCount] = useState(props.countDown || 0);
-  const [timing, setTiming] = useState(false); // 这么写是为了防止restProps中 带入 onChange, defaultValue, rules props tabUtil
-
   const {
     onChange,
     customProps,
@@ -32,36 +29,8 @@ const LoginItem = props => {
     rules,
     name,
     updateActive,
-    type,
-    tabUtil,
     ...restProps
   } = props;
-
-  useEffect(() => {
-    let interval = 0;
-    const { countDown } = props;
-
-    if (timing) {
-      interval = window.setInterval(() => {
-        setCount(preSecond => {
-          if (preSecond <= 1) {
-            setTiming(false);
-            clearInterval(interval); // 重置秒数
-
-            return countDown || 60;
-          }
-
-          return preSecond - 1;
-        });
-      }, 1000);
-    }
-
-    return () => clearInterval(interval);
-  }, [timing]);
-
-  if (!name) {
-    return null;
-  } // get getFieldDecorator props
 
   const options = getFormItemOptions(props);
   const otherProps = restProps || {};
