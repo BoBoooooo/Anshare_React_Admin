@@ -4,7 +4,7 @@ import {  connect } from 'umi';
 import LoginFrom from './components/Login';
 import styles from './style.less';
 
-const { Tab, UserName, Password, Submit } = LoginFrom;
+const { UserName, Password, Submit } = LoginFrom;
 
 const LoginMessage = ({ content }) => (
   <Alert

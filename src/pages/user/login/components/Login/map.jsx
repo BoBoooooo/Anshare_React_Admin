@@ -1,6 +1,7 @@
 import { LockTwoTone, MailTwoTone, MobileTwoTone, UserOutlined } from '@ant-design/icons';
 import React from 'react';
 import styles from './index.less';
+
 export default {
   UserName: {
     props: {
@@ -52,19 +53,6 @@ export default {
       {
         pattern: /^1\d{10}$/,
         message: 'Wrong mobile number format!',
-      },
-    ],
-  },
-  Captcha: {
-    props: {
-      size: 'large',
-      prefix: <MailTwoTone className={styles.prefixIcon} />,
-      placeholder: 'captcha',
-    },
-    rules: [
-      {
-        required: true,
-        message: 'Please enter Captcha!',
       },
     ],
   },
