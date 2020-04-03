@@ -1,11 +1,19 @@
+/*
+ * @file: 登录页
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2020年03月27 15:18:04
+ */
 import { Alert, Checkbox } from 'antd';
 import React, { useState } from 'react';
 import {  connect } from 'umi';
-import LoginFrom from './components/Login';
+import LoginForm from './components/Login';
 import styles from './style.less';
 
-const { UserName, Password, Submit } = LoginFrom;
+// LoginForm中获取到3个组件
+const { UserName, Password, Submit } = LoginForm;
 
+// 定义登录消息提示组件
 const LoginMessage = ({ content }) => (
   <Alert
     style={{
@@ -17,11 +25,14 @@ const LoginMessage = ({ content }) => (
   />
 );
 
+// 登录组件
 const Login = props => {
   const { userLogin = {}, submitting } = props;
-  const { status, type: loginType } = userLogin;
+  const { status } = userLogin;
   const [autoLogin, setAutoLogin] = useState(true);
 
+  // 定义登录submit方法
+  // dispatch到 login/login
   const handleSubmit = values => {
     const { dispatch } = props;
     dispatch({
@@ -32,14 +43,14 @@ const Login = props => {
 
   return (
     <div className={styles.main}>
-      <LoginFrom  onSubmit={handleSubmit}>
-          {status === 'error' && loginType === 'account' && !submitting && (
-            <LoginMessage content="账户或密码错误（admin/ant.design）" />
+      <LoginForm  onSubmit={handleSubmit}>
+          {status === 'error' && !submitting && (
+            <LoginMessage content="账户或密码错误" />
           )}
 
           <UserName
             name="username"
-            placeholder="用户名: admin or user"
+            placeholder="用户名"
             rules={[
               {
                 required: true,
@@ -49,7 +60,7 @@ const Login = props => {
           />
           <Password
             name="password"
-            placeholder="密码: ant.design"
+            placeholder="密码"
             rules={[
               {
                 required: true,
@@ -72,7 +83,7 @@ const Login = props => {
         </div>
         <Submit loading={submitting}>登录</Submit>
 
-      </LoginFrom>
+      </LoginForm>
     </div>
   );
 };
