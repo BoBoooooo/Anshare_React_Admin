@@ -11,7 +11,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'AnshareReactAdmin',
+  title: 'ReactAdmin',
   pwa: false,
   iconfontUrl: '',
 };
