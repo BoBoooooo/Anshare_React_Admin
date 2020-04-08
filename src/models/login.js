@@ -44,7 +44,7 @@ const Model = {
   reducers: {
     // 此处reducers负责修改state中的status值,进行重写
     changeLoginStatus(state, { payload }) {
-      setAuthority(['user']);
+      setAuthority(['admin']);
       // 只复写status这个属性
       return { ...state, status: payload.status };
     },

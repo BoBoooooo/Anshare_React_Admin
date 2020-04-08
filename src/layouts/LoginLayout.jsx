@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './LoginLayout.less';
 
 const UserLayout = props => {
+  // 拿到路由中的子组件
   const {
     children,
   } = props;

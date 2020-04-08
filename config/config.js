@@ -24,7 +24,15 @@ export default defineConfig({
   targets: {
     ie: 11,
   },
-  // umi routes: https://umijs.org/zh/guide/router.html
+  // 路由介绍: https://pro.ant.design/docs/router-and-nav-cn 
+  //         https://umijs.org/zh/guide/router.html
+  // icon:   https://ant.design/components/icon-cn/
+  // --------------------------------------------------------
+  // name 和 icon分别代表生成菜单项的文本和图标。
+  // hideChildrenInMenu 用于隐藏不需要在菜单中展示的子路由。用法可以查看 分步表单 的配置。
+  // hideInMenu 可以在菜单中不展示这个路由，包括子路由。
+  // authority 用来配置这个路由的权限，如果配置了将会验证当前用户的权限，并决定是否展示。
+  // 每一层routes最后需要配置404页面
   routes: [
     {
       path: '/user',
@@ -52,32 +60,27 @@ export default defineConfig({
             },
             {
               path: '/welcome',
-              name: 'welcome',
+              name: '欢迎页',
               icon: 'smile',
               component: './Welcome',
             },
             {
               path: '/admin',
-              name: 'admin',
-              icon: 'crown',
-              component: './Admin',
+              name: '系统设置',
+              icon: 'setting',
+              component: './ListTableList',
               authority: ['admin'],
               routes: [
                 {
-                  path: '/admin/sub-page',
-                  name: 'sub-page',
-                  icon: 'smile',
-                  component: './Welcome',
+                  path: '/admin/users',
+                  name: '用户设置',
+                  icon: 'table',
+                  component: './ListTableList',
                   authority: ['admin'],
                 },
               ],
             },
-            {
-              name: 'table-list',
-              icon: 'table',
-              path: '/list',
-              component: './ListTableList',
-            },
+
             {
               component: './404',
             },
@@ -123,8 +126,8 @@ export default defineConfig({
           const antdProPath = match[1].replace('.less', '');
           const arr = winPath(antdProPath)
             .split('/')
-            .map(a => a.replace(/([A-Z])/g, '-$1'))
-            .map(a => a.toLowerCase());
+            .map((a) => a.replace(/([A-Z])/g, '-$1'))
+            .map((a) => a.toLowerCase());
           return `antd-pro${arr.join('-')}-${localName}`.replace(/--/g, '-');
         }
 
