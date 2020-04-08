@@ -28,7 +28,7 @@ export default defineConfig({
   routes: [
     {
       path: '/user',
-      component: '../layouts/UserLayout',
+      component: '../layouts/LoginLayout',
       routes: [
         {
           name: 'login',
