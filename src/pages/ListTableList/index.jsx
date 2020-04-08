@@ -58,9 +58,7 @@ const handleRemove = async (selectedRows) => {
   if (!selectedRows) return true;
 
   try {
-    await removeRule({
-      id: selectedRows.map((row) => row.id),
-    });
+    await removeRule(selectedRows.map((row) => row.id));
     hide();
     message.success('删除成功，即将刷新');
     return true;
@@ -75,7 +73,6 @@ const TableList = () => {
   const [sorter, setSorter] = useState('');
   const [createModalVisible, handleModalVisible] = useState(false);
   const [updateModalVisible, handleUpdateModalVisible] = useState(false);
-  const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef();
   const columns = [
     {
@@ -157,18 +154,13 @@ const TableList = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => (
-        <>
-          <a
-            onClick={() => {
-              handleUpdateModalVisible(true);
-              setStepFormValues(record);
-            }}
-          >
-            配置
-          </a>
-          <Divider type="vertical" />
-          <a href="">订阅警报</a>
-        </>
+        <a
+          onClick={() => {
+            handleUpdateModalVisible(true);
+          }}
+        >
+          编辑
+        </a>
       ),
     },
   ];
@@ -184,6 +176,9 @@ const TableList = () => {
           if (sorterResult.field) {
             setSorter(`${sorterResult.field} ${sorterResult.order}`);
           }
+        }}
+        onSelect={(changeableRowKeys) => {
+          console.log(changeableRowKeys);
         }}
         params={{
           sorter,
@@ -205,7 +200,6 @@ const TableList = () => {
                   selectedKeys={[]}
                 >
                   <Menu.Item key="remove">批量删除</Menu.Item>
-                  <Menu.Item key="approval">批量审批</Menu.Item>
                 </Menu>
               }
             >
@@ -215,19 +209,6 @@ const TableList = () => {
             </Dropdown>
           ),
         ]}
-        tableAlertRender={(selectedRowKeys) => (
-          <div>
-            已选择{' '}
-            <a
-              style={{
-                fontWeight: 600,
-              }}
-            >
-              {selectedRowKeys.length}
-            </a>{' '}
-            项
-          </div>
-        )}
         request={(params) => queryRule(params)}
         columns={columns}
         rowSelection={{}}
@@ -245,34 +226,36 @@ const TableList = () => {
               }
             }
           }}
-          rowKey="key"
+          rowKey="id"
           type="form"
           columns={columns}
           rowSelection={{}}
         />
       </CreateForm>
-      {stepFormValues && Object.keys(stepFormValues).length ? (
-        <UpdateForm
+      <UpdateForm
+        onCancel={() => {
+          handleUpdateModalVisible(false);
+        }}
+        updateModalVisible={updateModalVisible}
+      >
+        <ProTable
           onSubmit={async (value) => {
             const success = await handleUpdate(value);
 
             if (success) {
               handleUpdateModalVisible(false);
-              setStepFormValues({});
 
               if (actionRef.current) {
                 actionRef.current.reload();
               }
             }
           }}
-          onCancel={() => {
-            handleUpdateModalVisible(false);
-            setStepFormValues({});
-          }}
-          updateModalVisible={updateModalVisible}
-          values={stepFormValues}
+          rowKey="id"
+          type="form"
+          columns={columns}
+          rowSelection={{}}
         />
-      ) : null}
+      </UpdateForm>
     </PageHeaderWrapper>
   );
 };
