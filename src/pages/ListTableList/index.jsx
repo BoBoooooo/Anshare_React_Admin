@@ -133,6 +133,7 @@ const TableList = () => {
       dataIndex: 'avatar',
       sorter: true,
       hideInForm: true,
+      hideInSearch: true,
       render: (_, record) => {
         return record.photo ? (
           <img
@@ -153,15 +154,18 @@ const TableList = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
-      render: (_, record) => (
-        <a
-          onClick={() => {
-            handleUpdateModalVisible(true);
-          }}
-        >
-          编辑
-        </a>
-      ),
+      render: (_, record) => {
+       
+        return (
+          <a
+            onClick={() => {
+              handleUpdateModalVisible(true);
+            }}
+          >
+            编辑
+          </a>
+        );
+      },
     },
   ];
   return (
@@ -169,6 +173,7 @@ const TableList = () => {
       <ProTable
         headerTitle="用户列表"
         actionRef={actionRef}
+        size="middle"
         rowKey="id"
         onChange={(_, _filter, _sorter) => {
           const sorterResult = _sorter;
@@ -177,8 +182,8 @@ const TableList = () => {
             setSorter(`${sorterResult.field} ${sorterResult.order}`);
           }
         }}
-        onSelect={(changeableRowKeys) => {
-          console.log(changeableRowKeys);
+        pagination={{
+          defaultPageSize: 10,
         }}
         params={{
           sorter,
