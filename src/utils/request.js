@@ -57,9 +57,6 @@ const request = extend({
 // request拦截器, 改变url 或 options.
 request.interceptors.request.use(async (url, options) => {
   const apiUrl = BASE_URL+url;
-  console.log(url);
-  console.log(apiUrl);
-
   const c_token = sessionStorage.getItem('auth');
   const headers = {
     'Content-Type': 'application/json',
