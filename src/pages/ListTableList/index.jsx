@@ -59,7 +59,7 @@ const handleRemove = async (selectedRows) => {
 
   try {
     await removeRule({
-      key: selectedRows.map((row) => row.key),
+      id: selectedRows.map((row) => row.id),
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -182,7 +182,7 @@ const TableList = () => {
           const sorterResult = _sorter;
 
           if (sorterResult.field) {
-            setSorter(`${sorterResult.field}_${sorterResult.order}`);
+            setSorter(`${sorterResult.field} ${sorterResult.order}`);
           }
         }}
         params={{
