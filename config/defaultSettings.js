@@ -8,10 +8,7 @@ export default {
   autoHideHeader: false,
   fixSiderbar: false,
   colorWeak: false,
-  menu: {
-    locale: true,
-  },
-  title: 'ReactAdmin',
+  title: 'BoBo’s React',
   pwa: false,
   iconfontUrl: '',
 };

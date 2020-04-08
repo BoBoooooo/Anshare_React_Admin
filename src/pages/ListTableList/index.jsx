@@ -11,7 +11,7 @@ import { queryRule, updateRule, addRule, removeRule } from './service';
  * @param fields
  */
 
-const handleAdd = async fields => {
+const handleAdd = async (fields) => {
   const hide = message.loading('正在添加');
 
   try {
@@ -30,7 +30,7 @@ const handleAdd = async fields => {
  * @param fields
  */
 
-const handleUpdate = async fields => {
+const handleUpdate = async (fields) => {
   const hide = message.loading('正在配置');
 
   try {
@@ -53,13 +53,13 @@ const handleUpdate = async fields => {
  * @param selectedRows
  */
 
-const handleRemove = async selectedRows => {
+const handleRemove = async (selectedRows) => {
   const hide = message.loading('正在删除');
   if (!selectedRows) return true;
 
   try {
     await removeRule({
-      key: selectedRows.map(row => row.key),
+      key: selectedRows.map((row) => row.key),
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -79,56 +79,78 @@ const TableList = () => {
   const actionRef = useRef();
   const columns = [
     {
-      title: '规则名称',
-      dataIndex: 'name',
+      title: '用户名',
+      dataIndex: 'username',
       rules: [
         {
           required: true,
-          message: '规则名称为必填项',
+          message: '用户名为必填项',
         },
       ],
     },
     {
-      title: '描述',
-      dataIndex: 'desc',
-      valueType: 'textarea',
+      title: '昵称',
+      dataIndex: 'realname',
+      rules: [
+        {
+          required: true,
+          message: '昵称为必填项',
+        },
+      ],
     },
     {
-      title: '服务调用次数',
-      dataIndex: 'callNo',
+      title: '角色',
+      dataIndex: 'rolename',
       sorter: true,
       hideInForm: true,
-      renderText: val => `${val} 万`,
+    },
+    {
+      title: '部门',
+      dataIndex: 'deptname',
+      sorter: true,
+      hideInForm: true,
+    },
+    {
+      title: '岗位',
+      dataIndex: 'position',
+      sorter: true,
+      hideInForm: true,
     },
     {
       title: '状态',
-      dataIndex: 'status',
+      dataIndex: 'logincount',
       hideInForm: true,
       valueEnum: {
         0: {
-          text: '关闭',
-          status: 'Default',
+          text: '正常',
+          logincount: '0',
         },
         1: {
-          text: '运行中',
-          status: 'Processing',
-        },
-        2: {
-          text: '已上线',
-          status: 'Success',
-        },
-        3: {
-          text: '异常',
-          status: 'Error',
+          text: '锁定',
+          logincount: '1',
         },
       },
     },
     {
-      title: '上次调度时间',
-      dataIndex: 'updatedAt',
+      title: '头像',
+      dataIndex: 'avatar',
       sorter: true,
-      valueType: 'dateTime',
       hideInForm: true,
+      render: (_, record) => {
+        return record.photo ? (
+          <img
+            alt="logo"
+            src={record.photo}
+            style={{
+              width: '39px',
+              height: '39px',
+              display: 'block',
+            }}
+          />
+        ) : (
+          ''
+        );
+      },
     },
     {
       title: '操作',
@@ -153,9 +175,9 @@ const TableList = () => {
   return (
     <PageHeaderWrapper>
       <ProTable
-        headerTitle="查询表格"
+        headerTitle="用户列表"
         actionRef={actionRef}
-        rowKey="key"
+        rowKey="id"
         onChange={(_, _filter, _sorter) => {
           const sorterResult = _sorter;
 
@@ -174,7 +196,7 @@ const TableList = () => {
             <Dropdown
               overlay={
                 <Menu
-                  onClick={async e => {
+                  onClick={async (e) => {
                     if (e.key === 'remove') {
                       await handleRemove(selectedRows);
                       action.reload();
@@ -193,7 +215,7 @@ const TableList = () => {
             </Dropdown>
           ),
         ]}
-        tableAlertRender={(selectedRowKeys, selectedRows) => (
+        tableAlertRender={(selectedRowKeys) => (
           <div>
             已选择{' '}
             <a
@@ -203,19 +225,16 @@ const TableList = () => {
             >
               {selectedRowKeys.length}
             </a>{' '}
-            项&nbsp;&nbsp;
-            <span>
-              服务调用次数总计 {selectedRows.reduce((pre, item) => pre + item.callNo, 0)} 万
-            </span>
+            项
           </div>
         )}
-        request={params => queryRule(params)}
+        request={(params) => queryRule(params)}
         columns={columns}
         rowSelection={{}}
       />
       <CreateForm onCancel={() => handleModalVisible(false)} modalVisible={createModalVisible}>
         <ProTable
-          onSubmit={async value => {
+          onSubmit={async (value) => {
             const success = await handleAdd(value);
 
             if (success) {
@@ -234,7 +253,7 @@ const TableList = () => {
       </CreateForm>
       {stepFormValues && Object.keys(stepFormValues).length ? (
         <UpdateForm
-          onSubmit={async value => {
+          onSubmit={async (value) => {
             const success = await handleUpdate(value);
 
             if (success) {
