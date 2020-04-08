@@ -18,6 +18,13 @@ export default defineConfig({
   dva: {
     hmr: true,
   },
+  locale: {
+    // default zh-CN
+    default: 'zh-CN',
+    // default true, when it is true, will use `navigator.language` overwrite default
+    antd: true,
+    baseNavigator: true,
+  },
   dynamicImport: {
     loading: '@/components/PageLoading/index',
   },
@@ -27,7 +34,7 @@ export default defineConfig({
   // 路由介绍: https://pro.ant.design/docs/router-and-nav-cn 
   //         https://umijs.org/zh/guide/router.html
   // icon:   https://ant.design/components/icon-cn/
-  // --------------------------------------------------------
+  // 
   // name 和 icon分别代表生成菜单项的文本和图标。
   // hideChildrenInMenu 用于隐藏不需要在菜单中展示的子路由。用法可以查看 分步表单 的配置。
   // hideInMenu 可以在菜单中不展示这个路由，包括子路由。
