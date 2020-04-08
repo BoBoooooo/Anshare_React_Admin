@@ -9,7 +9,7 @@ export async function fakeAccountLogin(params) {
 
 // 用户登录
 export async function login(userInfo) {
-  return request('http://116.62.78.229:8086/FlowSCBackend/user/login',{
+  return request('/user/login',{
     method: 'POST',
     params: userInfo,
   });

@@ -5,6 +5,7 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
 
+const BASE_URL= 'http://116.62.78.229:8086/FlowSCBackend';
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -55,8 +56,11 @@ const request = extend({
 
 // request拦截器, 改变url 或 options.
 request.interceptors.request.use(async (url, options) => {
+  const apiUrl = BASE_URL+url;
+  console.log(url);
+  console.log(apiUrl);
+
   const c_token = sessionStorage.getItem('auth');
-  console.log(c_token);
   const headers = {
     'Content-Type': 'application/json',
     Accept: 'application/json, text/plain, */*',
@@ -64,20 +68,18 @@ request.interceptors.request.use(async (url, options) => {
   if (c_token) {
     headers.auth = c_token;
     return {
-      url,
+      url:apiUrl,
       options: { ...options, headers },
     };
   }
   return {
-    url,
+    url:apiUrl,
     options: { ...options },
   };
 });
 
 // response拦截器, 处理response
-request.interceptors.response.use((response,options) => {
-  console.log(response);
-  console.log(options);
+request.interceptors.response.use((response) => {
   return response;
 });
 
