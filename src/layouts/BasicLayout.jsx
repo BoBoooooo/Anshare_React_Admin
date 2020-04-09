@@ -27,6 +27,7 @@ const noMatch = (
 );
 /**
  * use Authorized check all menu item
+ * 此处递归遍历所有权限范围内的页面
  */
 
 const menuDataRender = menuList =>

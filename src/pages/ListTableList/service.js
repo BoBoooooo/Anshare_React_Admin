@@ -1,10 +1,10 @@
 import request from '@/utils/request';
+
 const expectKeys = ['pageSize', 'current', '_timestamp', 'sorter'];
 
 export async function queryRule(params) {
-  console.log(params);
   const { current, pageSize, sorter } = params;
-  let searchCondition = [];
+  const searchCondition = [];
   Object.keys(params).forEach((k) => {
     if (expectKeys.every((item) => item !== k)) {
       searchCondition.push({

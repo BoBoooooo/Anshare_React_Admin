@@ -1,15 +1,10 @@
-import { Tooltip, Tag } from 'antd';
+import { Tooltip } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import React from 'react';
 import { connect } from 'umi';
 import Avatar from './AvatarDropdown';
 import styles from './index.less';
 
-const ENVTagColor = {
-  dev: 'orange',
-  test: 'green',
-  pre: '#87d068',
-};
 
 const GlobalHeaderRight = (props) => {
   const { theme, layout } = props;
@@ -32,11 +27,6 @@ const GlobalHeaderRight = (props) => {
         </a>
       </Tooltip>
       <Avatar />
-      {REACT_APP_ENV && (
-        <span>
-          <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>
-        </span>
-      )}
     </div>
   );
 };
