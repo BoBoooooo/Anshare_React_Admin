@@ -6,18 +6,11 @@ class SecurityLayout extends React.Component {
   state = {
     isReady: false,
   };
-
+  
   componentDidMount() {
     this.setState({
       isReady: true,
     });
-    const { dispatch } = this.props;
-
-    if (dispatch) {
-      dispatch({
-        type: 'user/getUserInfo',
-      });
-    }
   }
 
   render() {
@@ -39,6 +32,5 @@ class SecurityLayout extends React.Component {
 }
 
 export default connect(({ user, loading }) => ({
-  currentUser: user.currentUser,
   loading: loading.models.user,
 }))(SecurityLayout);

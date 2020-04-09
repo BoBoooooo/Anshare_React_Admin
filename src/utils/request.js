@@ -4,6 +4,8 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css'; // Progress 进度条样式
 
 const BASE_URL= 'http://116.62.78.229:8086/FlowSCBackend';
 const codeMessage = {
@@ -62,6 +64,9 @@ request.interceptors.request.use(async (url, options) => {
     'Content-Type': 'application/json',
     Accept: 'application/json, text/plain, */*',
   };
+  // 发出请求开始加载进度条
+  NProgress.start();  
+
   if (c_token) {
     headers.auth = c_token;
     return {
@@ -77,6 +82,8 @@ request.interceptors.request.use(async (url, options) => {
 
 // response拦截器, 处理response
 request.interceptors.response.use((response) => {
+    // 收到相应结束加载
+    NProgress.done();  
   return response;
 });
 

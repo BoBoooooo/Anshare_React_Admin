@@ -7,15 +7,16 @@ const UserModel = {
   },
   effects: {
     *getUserInfo(_, { call, put }) {
+      console.log(2);
       const response = yield call(getUserInfo);
       yield put({
-        type: 'getUserInfo',
+        type: 'changeUserInfo',
         payload: response.data,
       });
     },
   },
   reducers: {
-    getUserInfo(state, action) {
+    changeUserInfo(state, action) {
       return { ...state, currentUser: action.payload || {} };
     },
   },
