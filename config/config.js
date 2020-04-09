@@ -75,14 +75,14 @@ export default defineConfig({
               path: '/admin',
               name: '系统设置',
               icon: 'setting',
-              component: './ListTableList',
+              component: './system/users',
               authority: ['admin'],
               routes: [
                 {
                   path: '/admin/users',
                   name: '用户设置',
                   icon: 'table',
-                  component: './ListTableList',
+                  component: './system/users',
                   authority: ['admin'],
                 },
               ],
