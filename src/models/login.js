@@ -30,6 +30,12 @@ const Model = {
         sessionStorage.setItem('auth',data.token);
         history.push('/');
       }
+      else{
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {status:'error'},
+        });
+      }
     },
 
     logout() {

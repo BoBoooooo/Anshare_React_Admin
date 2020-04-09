@@ -5,7 +5,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import CreateForm from './components/CreateForm';
 import UpdateForm from './components/UpdateForm';
-import { queryRule, updateRule, addRule, removeRule } from './service';
+import { query, update, add, remove } from './service';
 /**
  * 添加节点
  * @param fields
@@ -15,7 +15,7 @@ const handleAdd = async (fields) => {
   const hide = message.loading('正在添加');
 
   try {
-    await addRule({ ...fields });
+    await add({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -34,7 +34,7 @@ const handleUpdate = async (fields) => {
   const hide = message.loading('正在配置');
 
   try {
-    await updateRule({
+    await update({
       name: fields.name,
       desc: fields.desc,
       key: fields.key,
@@ -58,7 +58,7 @@ const handleRemove = async (selectedRows) => {
   if (!selectedRows) return true;
 
   try {
-    await removeRule(selectedRows.map((row) => row.id));
+    await remove(selectedRows.map((row) => row.id));
     hide();
     message.success('删除成功，即将刷新');
     return true;
@@ -214,7 +214,7 @@ const TableList = () => {
             </Dropdown>
           ),
         ]}
-        request={(params) => queryRule(params)}
+        request={(params) => query(params)}
         columns={columns}
         rowSelection={{}}
       />

@@ -2,7 +2,7 @@ import request from '@/utils/request';
 
 const expectKeys = ['pageSize', 'current', '_timestamp', 'sorter'];
 
-export async function queryRule(params) {
+export async function query(params) {
   const { current, pageSize, sorter } = params;
   const searchCondition = [];
   Object.keys(params).forEach((k) => {
@@ -33,19 +33,19 @@ export async function queryRule(params) {
     current,
   };
 }
-export async function removeRule(params) {
+export async function remove(params) {
   return request('/users/deleteByIds', {
     method: 'POST',
     data: { ...params },
   });
 }
-export async function addRule(params) {
+export async function add(params) {
   return request('/users/add', {
     method: 'POST',
     data: { ...params },
   });
 }
-export async function updateRule(params) {
+export async function update(params) {
   return request('/users/update', {
     method: 'POST',
     data: { ...params },

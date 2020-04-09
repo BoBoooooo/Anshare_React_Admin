@@ -78,7 +78,7 @@ const BasicLayout = props => {
   useEffect(() => {
     if (dispatch) {
       dispatch({
-        type: 'user/fetchCurrent',
+        type: 'user/getUserInfo',
       });
     }
   }, []);
@@ -143,6 +143,10 @@ const BasicLayout = props => {
   );
 };
 
+/**
+ * 此处redux
+ * global , settings表示 model中的namespace
+ */
 export default connect(({ global, settings }) => ({
   collapsed: global.collapsed,
   settings,
