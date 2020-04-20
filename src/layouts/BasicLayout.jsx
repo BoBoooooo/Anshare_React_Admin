@@ -11,6 +11,7 @@ import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { getAuthorityFromRouter } from '@/utils/utils';
+import style from './BasicLayout.less';
 
 const logo = "https://blog.boboooooo.top/avatar.jpg";
 const noMatch = (
@@ -98,11 +99,12 @@ const BasicLayout = props => {
   const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
     authority: undefined,
   };
+ 
   return (
     <ProLayout
       logo={logo}
       menuHeaderRender={(logoDom, titleDom) => (
-        <Link to="/">
+        <Link to="/" className={style.logoContainer}>
           {logoDom}
           {titleDom}
         </Link>
