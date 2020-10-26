@@ -7,21 +7,21 @@ export default () => (
     copyright="2019 蚂蚁金服体验技术部出品"
     links={[
       {
-        key: 'Wiki',
-        title: 'Wiki',
-        href: 'wiki.anshare.com.cn ',
+        key: 'Ant Design Pro',
+        title: 'Ant Design Pro',
+        href: 'https://pro.ant.design',
         blankTarget: true,
       },
       {
         key: 'github',
         title: <GithubOutlined />,
-        href: 'https://https://github.com/BoBoooooo',
+        href: 'https://github.com/ant-design/ant-design-pro',
         blankTarget: true,
       },
       {
-        key: 'Blog',
-        title: 'Blog',
-        href: 'https://blog.boboooooo.top/',
+        key: 'Ant Design',
+        title: 'Ant Design',
+        href: 'https://ant.design',
         blankTarget: true,
       },
     ]}

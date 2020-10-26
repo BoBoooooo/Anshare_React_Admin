@@ -2,7 +2,9 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
+
 const { REACT_APP_ENV } = process.env;
+
 export default defineConfig({
   hash: true,
   antd: {},
@@ -10,16 +12,17 @@ export default defineConfig({
     hmr: true,
   },
   layout: {
-    name: 'BoBo React Admin',
+    name: 'Ant Design Pro',
     locale: true,
+    ...defaultSettings,
   },
-  // locale: {
-  //   // default zh-CN
-  //   default: 'zh-CN',
-  //   // default true, when it is true, will use `navigator.language` overwrite default
-  //   antd: true,
-  //   baseNavigator: true,
-  // },
+  locale: {
+    // default zh-CN
+    default: 'zh-CN',
+    antd: true,
+    // default true, when it is true, will use `navigator.language` overwrite default
+    baseNavigator: true,
+  },
   dynamicImport: {
     loading: '@/components/PageLoading/index',
   },
@@ -35,7 +38,6 @@ export default defineConfig({
         {
           name: 'login',
           path: '/user/login',
-          layout: false,
           component: './user/login',
         },
       ],
@@ -72,12 +74,6 @@ export default defineConfig({
       redirect: '/welcome',
     },
     {
-      name: '工作台',
-      icon: 'smile',
-      path: '/dashboardworkplace',
-      component: './DashboardWorkplace',
-    },
-    {
       component: './404',
     },
   ],
@@ -86,6 +82,8 @@ export default defineConfig({
     // ...darkTheme,
     'primary-color': defaultSettings.primaryColor,
   },
+  // @ts-ignore
+  title: false,
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
   manifest: {
