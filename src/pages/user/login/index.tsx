@@ -1,14 +1,12 @@
-import { AlipayCircleOutlined, TaobaoCircleOutlined, WeiboCircleOutlined } from '@ant-design/icons';
 import { Alert, Checkbox, message } from 'antd';
 import React, { useState } from 'react';
-import { Link, SelectLang, history } from 'umi';
-import logo from '@/assets/logo.svg';
+import { SelectLang, history } from 'umi';
 import { LoginParamsType, fakeAccountLogin } from '@/services/login';
 import Footer from '@/components/Footer';
 import LoginFrom from './components/Login';
 import styles from './style.less';
 
-const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginFrom;
+const { Tab, Username, Password, Submit } = LoginFrom;
 
 const LoginMessage: React.FC<{
   content: string;
@@ -63,16 +61,6 @@ const Login: React.FC<{}> = () => {
         <SelectLang />
       </div>
       <div className={styles.content}>
-        <div className={styles.top}>
-          <div className={styles.header}>
-            <Link to="/">
-              <img alt="logo" className={styles.logo} src={logo} />
-              <span className={styles.title}>Ant Design</span>
-            </Link>
-          </div>
-          <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
-        </div>
-
         <div className={styles.main}>
           <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
             <Tab key="account" tab="账户密码登录">
